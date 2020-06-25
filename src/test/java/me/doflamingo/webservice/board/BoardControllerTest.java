@@ -56,7 +56,7 @@ class BoardControllerTest {
         Board board = Board.builder().id(1L).title("제목").content("내용").author("나").created(LocalDate.now()).build();
         //given(boardService.addPost(any())).willReturn(board);
         mockMvc.perform(post("/boards/write")
-        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
         .content("{\"title\":\"제목\",\"content\":\"내용\",\"author\":\"나\"}"))
                 .andDo(print())
                 .andExpect(status().isOk())

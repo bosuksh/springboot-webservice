@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
+import java.util.List;
 
 @Controller
 @RequestMapping("/boards")
@@ -20,9 +21,12 @@ public class BoardController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping()
     public ModelAndView showBoardList() {
-        return new ModelAndView("boardList");
+        List<Board> boardList = boardService.retrievePostList();
+        ModelAndView modelAndView = new ModelAndView("boardList");
+        modelAndView.addObject("postList",boardList);
+        return modelAndView;
     }
 
     @GetMapping("/{id}")
