@@ -29,7 +29,7 @@ dependencies {
     compile 'org.webjars:bootstrap:4.3.1'
     compile 'org.webjars:popper.js:1.16.0'
     runtimeOnly 'com.h2database:h2'
-    runtimeOnly group: 'org.springframework.boot', name: 'spring-boot-devtools'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

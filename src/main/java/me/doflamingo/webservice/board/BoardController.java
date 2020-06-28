@@ -23,7 +23,10 @@ public class BoardController {
 
     @GetMapping("/write")
     public ModelAndView showWriteBoard(@ModelAttribute Board board) {
-        return new ModelAndView("writeBoard");
+
+        ModelAndView view = new ModelAndView("writeBoard");
+        view.addObject("contentNum",-1);
+        return view;
     }
 
 
@@ -52,7 +55,7 @@ public class BoardController {
         return newPost;
     }
 
-    @PostMapping("/write/{id}")
+    @PutMapping("/write/{id}")
     public @ResponseBody Board updatePost(@PathVariable Long id,@RequestBody Board board) {
         logger.info(board.toString());
         Board newPost = boardService.updatePost(id,board);
