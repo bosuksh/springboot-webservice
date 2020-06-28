@@ -1,16 +1,22 @@
 package me.doflamingo.webservice.board;
 
+import org.apache.tomcat.jni.Local;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("/boards")
 public class BoardController {
+
+    Logger logger = LoggerFactory.getLogger(BoardController.class);
 
     @Autowired
     BoardService boardService;
@@ -31,14 +37,27 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public ModelAndView showBoardDetail(@PathVariable Long id) {
-        return new ModelAndView("boardDetail");
+        Board board = boardService.retrievePost(id);
+        ModelAndView view = new ModelAndView("writeBoard");
+        view.addObject("contentNum",id);
+        view.addObject("post",board);
+        return view;
     }
 
 
     @PostMapping("/write")
-    @ResponseBody public String addPost(@RequestBody Board board) {
-        boardService.addPost(board);
-        return "post added";
+    public @ResponseBody Board addPost(@RequestBody Board board) {
+        logger.info(board.toString());
+        Board newPost = boardService.addPost(board);
+        return newPost;
     }
+
+    @PostMapping("/write/{id}")
+    public @ResponseBody Board updatePost(@PathVariable Long id,@RequestBody Board board) {
+        logger.info(board.toString());
+        Board newPost = boardService.updatePost(id,board);
+        return newPost;
+    }
+
 
 }

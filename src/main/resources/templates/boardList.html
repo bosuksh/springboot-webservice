@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <title>BoardList</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
-    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/1.14.3/dist/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div class="container">
-    <h1>게시판</h1>
+    <p></p>
+    <h1 class="text-center">게시판</h1>
     <div class="col-8.col-md-6 align-items-center">
-        <table class="table align-content-center">
+        <table class="table text-center" id="postList">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">목차</th>
@@ -22,14 +23,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="post : ${postList}">
-                <td th:text="${post.id}">emil</td>
-                <td th:text="${post.title}">name</td>
-                <td th:text="${post.content}">stat</td>
-                <td th:text="${post.author}">super</td>
+            <tr th:each="post : ${postList}" th:id="${'tr'+post.id}">
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${post.author}"></td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <script>
+        $(function () {
+            $('#postList tr').click(function () {
+                var tr = $(this);
+                var id = tr.children('td')[0].innerHTML;
+                console.log(id);
+
+                location.href = '/boards/'+id;
+            })
+        })
+    </script>
+    <div class="align-self-end">
+        <a href="http://localhost:8080/boards/write" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">글쓰기</a>
     </div>
 </div>
 </body>

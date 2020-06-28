@@ -24,4 +24,13 @@ public class BoardService {
     public Board retrievePost(Long id) {
         return boardRepository.findById(id).orElse(null);
     }
+
+    public Board updatePost(Long id, Board post) {
+        Board board = boardRepository.findById(id).orElse(null);
+        board.setTitle(post.getTitle());
+        board.setAuthor(post.getAuthor());
+        board.setContent(post.getContent());
+        board.setUpdated(board.getUpdated());
+        return boardRepository.save(board);
+    }
 }
