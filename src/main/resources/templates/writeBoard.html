@@ -11,16 +11,17 @@
 <body>
    <div class="container">
        <h1 class="text-center">글쓰기</h1>
+       <p></p>
        <form id="writeForm">
        <div class="form-group">
 <!--          <label for="title" class="col-2">제목</label>-->
            <input type="text" class="form-control" id="title" th:value="${post?.title}" th:readonly="${contentNum != -1}">
            <textarea class="form-control" id="content" rows="10" th:text="${post?.content}" th:readonly="${contentNum != -1}"></textarea>
        </div>
-       <div class="offset-10 col-4 align-self-end">
+       <div class="offset-10  align-self-end">
            <div class="form-group">
-               <button class="btn btn-primary" id="submitBtn" type="submit" th:hidden="${contentNum != -1}">완료</button>
-               <button class="btn btn-primary" id="updateBtn" type="button" th:hidden="${contentNum == -1}">수정</button>
+               <button class="btn btn-primary btn-block" id="submitBtn" type="submit" th:hidden="${contentNum != -1}">완료</button>
+               <button class="btn btn-primary btn-block" id="updateBtn" type="button" th:hidden="${contentNum == -1}">수정</button>
            </div>
            <script>
                $(function() {
@@ -35,15 +36,17 @@
                    $('#writeForm').submit(function () {
                        console.log(id);
                        if(id == -1) {
+                           $('#writeForm').prop('action','/boards')
                            addPost();
                        }else {
+                           // $('#writeForm').prop('action','/boards/write')
                            updatePost(id);
                        }
 
                    })
 
                    function addPost() {
-                       var data = {};
+                       let data = {};
                        data['title'] = $('#title').val();
                        data['content'] = $('#content').val();
                        data['author'] = 'me';
@@ -56,11 +59,11 @@
                            data: JSON.stringify(data),
                            dataType: "json",
                            cache: false,
+                           async: false,
                            timeout: 600000,
                            success: function (data) {
                                console.log('Success: ', data);
                                alert('새 글이 등록되었습니다.');
-                               location.href = "/boards"
 
                            },
                            error: function (error) {
@@ -70,7 +73,7 @@
                        })
                    }
                    function updatePost(id) {
-                       var data = {};
+                       let data = {};
                        data['title'] = $('#title').val();
                        data['content'] = $('#content').val();
                        data['author'] = 'me';
@@ -83,6 +86,7 @@
                            data: JSON.stringify(data),
                            dataType: "json",
                            cache: false,
+                           async: false,
                            timeout: 600000,
                            success: function (data) {
                                console.log('Success: ', data);

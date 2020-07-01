@@ -15,6 +15,5 @@ public class AppRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        boardRepository.save(Board.builder().title("첫번째글").content("첫번째 글입니다.").author("dofming").build());
     }
 }
