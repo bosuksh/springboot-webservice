@@ -5,24 +5,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
+@ToString
+@EqualsAndHashCode
 public class Account {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Id
     @Setter
+    @NonNull
     private String userId;
 
     @Setter
+    @NonNull
     private String password;
 
     @Setter
+    @NonNull
     private String name;
 
     @Lob
@@ -41,12 +45,4 @@ public class Account {
     @Setter
     private Date lastModifiedDate;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
