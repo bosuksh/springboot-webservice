@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class WebConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     public void configure(WebSecurity web) throws Exception
     {
@@ -18,11 +19,14 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/h2-console/**").permitAll();
+        /**
+         * 로그인 disable 처리
 
+         */
+        //security.httpBasic().disable();
+        http.cors().and();
         http.csrf().disable();
-        http.headers().frameOptions().disable();
+
     }
+
 }

@@ -60,7 +60,7 @@ class BoardControllerTest {
         .content("{\"title\":\"제목\",\"content\":\"내용\",\"author\":\"나\"}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("post added"));
+                .andExpect(content().string(board.toString()));
 
         verify(boardService).addPost(any());
     }

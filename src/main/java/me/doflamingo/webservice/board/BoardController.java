@@ -50,7 +50,7 @@ public class BoardController {
 
     @PostMapping("/write")
     public @ResponseBody Board addPost(@RequestBody Board board) {
-        logger.info(board.toString());
+        logger.error(board.toString());
         Board newPost = boardService.addPost(board);
         return newPost;
     }
